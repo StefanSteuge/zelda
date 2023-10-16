@@ -5,7 +5,7 @@ package com.example.zelda.engine;
 import com.example.zelda.Zelda;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -18,29 +18,34 @@ import java.net.URL;
 public class Sprite {
 
 	private BufferedImage image;
-
 	private int x;
-
 	private int y;
-
 	private int width;
-
 	private int height;
 
 	public Sprite(String img) {
+		loadImage(img);
+	}
+
+	private void loadImage(String img) {
 		URL imageUrl = Zelda.class.getResource(img);
 
+		if (imageUrl == null) {
+			throw new RuntimeException("Image not found: " + img);
+		}
+
 		try {
-            assert imageUrl != null;
-            image = ImageIO.read(imageUrl);
-		} catch(IOException ignored){}
+			image = ImageIO.read(imageUrl);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void setSprite(Rectangle rect) {
-		this.x = (int)rect.getX();
-		this.y = (int)rect.getY();
-		this.width = (int)rect.getWidth();
-		this.height = (int)rect.getHeight();
+		this.x = (int) rect.getX();
+		this.y = (int) rect.getY();
+		this.width = (int) rect.getWidth();
+		this.height = (int) rect.getHeight();
 	}
 
 	public synchronized BufferedImage getImage() {
@@ -55,24 +60,24 @@ public class Sprite {
 		this.x = x;
 	}
 
-	public void setY(int y) {
-		this.y = y;
-	}
-
 	public int getY() {
 		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
 	}
 
 	public int getHeight() {
 		return height;
 	}
 
-	public int getWidth() {
-		return width;
-	}
-
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	public int getWidth() {
+		return width;
 	}
 
 	public void setWidth(int width) {

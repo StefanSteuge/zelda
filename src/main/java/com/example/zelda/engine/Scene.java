@@ -1,7 +1,11 @@
 package com.example.zelda.engine;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.util.List;
+import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * This represents a level in the game.
@@ -11,55 +15,49 @@ import java.util.ArrayList;
 public abstract class Scene implements DrawAble {
 
 	protected Sprite sprite;
-
 	protected Game game;
-
-    protected ArrayList<GObject> newGameObjects = new ArrayList<>();
-
-	protected ArrayList<GObject> gameObjects = new ArrayList<>();
-
-	protected ArrayList<Polygon> solids = new ArrayList<>();
-
-	protected ArrayList<Rectangle> hitters = new ArrayList<>();
-
-    protected ArrayList<Polygon> eyeViews = new ArrayList<>();
-
+	protected final List<GObject> gameObjects = new ArrayList<>();
+	protected final List<GObject> newGameObjects = new ArrayList<>();
+	protected final List<Polygon> solids = new ArrayList<>();
+	protected final List<Rectangle> hitters = new ArrayList<>();
+	protected final List<Polygon> eyeViews = new ArrayList<>();
 	protected String sceneName;
-
-	protected final static int MOD = 1;
+	protected static final int MOD = 1;
 
 	public Scene(Game game, String img, String sceneName) {
 		this.game = game;
 		sprite = new Sprite(img);
 		this.sceneName = sceneName;
 	}
-	
+
+	@Override
 	public void draw(Graphics2D g2) {
 		g2.drawImage(sprite.getImage(), 0, 0, game.getWidth(), game.getHeight(), null);
 	}
 
+	public Sprite getSprite() {
+		return sprite;
+	}
+
 	public synchronized void handleInput() {
 		gameObjects.addAll(newGameObjects);
-
 		gameObjects.sort(new GObjectComparator());
 
-        // remove dead objects
-        gameObjects.removeIf(obj -> !obj.isAlive());
-        newGameObjects.clear();
+		// Remove dead objects
+		gameObjects.removeIf(obj -> !obj.isAlive());
+		newGameObjects.clear();
 	}
 
 	public void moveScene(int toX, int toY) {
 		boolean moved;
 
-		moved = isMoved(toX, toY);
-		while (moved) {
+		do {
 			moved = isMoved(toX, toY);
-		}
+		} while (moved);
 	}
 
 	private boolean isMoved(int toX, int toY) {
-		boolean moved;
-		moved = false;
+		boolean moved = false;
 
 		if (sprite.getX() < toX) {
 			int newX = sprite.getX() + MOD;
@@ -71,7 +69,7 @@ public abstract class Scene implements DrawAble {
 				moved = true;
 			}
 		}
-		if (sprite.getX() > toX) {// link moves too far to the left
+		if (sprite.getX() > toX) {
 			int newX = sprite.getX() - MOD;
 
 			if (newX > 0) {
@@ -103,39 +101,32 @@ public abstract class Scene implements DrawAble {
 		return moved;
 	}
 
-	/**
-	 * When the screen moves everything else should move in the opposite direction.
-	 * otherwise they won't sit still.
-	 *
-	 * @param modX
-	 * @param modY
-	 */
 	public void modShapes(int modX, int modY) {
-		for (var poly : solids) {
+		for (Polygon poly : solids) {
 			poly.translate(modX, modY);
 		}
 
-		for (var obj : gameObjects) {
-			if (obj.isScreenAdjust()) {// should it adjust when screen moves.
+		for (GObject obj : gameObjects) {
+			if (obj.isScreenAdjust()) {
 				obj.setXHardCore(obj.getX() + modX);
 				obj.setYHardCore(obj.getY() + modY);
 			}
 		}
 	}
-	
+
 	public void addGObject(GObject gObject) {
 		gameObjects.add(gObject);
 	}
 
-    public void addNewGObject(GObject gObject) {
+	public void addNewGObject(GObject gObject) {
 		newGameObjects.add(gObject);
 	}
 
-	public ArrayList<Polygon> getSolids() {
+	public List<Polygon> getSolids() {
 		return solids;
 	}
 
-	public ArrayList<GObject> getGObjects() {
+	public List<GObject> getGObjects() {
 		return gameObjects;
 	}
 
@@ -147,11 +138,11 @@ public abstract class Scene implements DrawAble {
 		hitters.remove(rect);
 	}
 
-	public ArrayList<Rectangle> getHitters() {
+	public List<Rectangle> getHitters() {
 		return hitters;
 	}
 
-    public void addEyeView(Polygon poly) {
+	public void addEyeView(Polygon poly) {
 		eyeViews.add(poly);
 	}
 
@@ -159,17 +150,11 @@ public abstract class Scene implements DrawAble {
 		eyeViews.remove(poly);
 	}
 
-	public ArrayList<Polygon> getEyeViews() {
+	public List<Polygon> getEyeViews() {
 		return eyeViews;
 	}
 
 	public String getName() {
 		return sceneName;
 	}
-
-	//remove after done with PolyCreator
-	public Sprite getSprite() {
-		return sprite;
-	}
-
 }
