@@ -7,7 +7,10 @@ import com.example.zelda.engine.Game;
 import com.example.zelda.items.Warp;
 import com.example.zelda.karacter.Direction;
 
-import java.awt.*;
+import java.util.List;
+
+import java.awt.Polygon;
+import java.awt.Rectangle;
 
 /**
  *
@@ -18,7 +21,7 @@ public class BattleScene extends ZeldaScene {
     private final Rectangle warpExit = new Rectangle(232, 458, 16, 16);
 
     public BattleScene(Game game, String entrance) {
-        super(game, "src/main/resources/static/images/battle-dark.png", "BattleScene");
+        super(game, "/static/images/battle-dark.png", "BattleScene");
 
         exits.add(warpExit);
 
@@ -38,26 +41,26 @@ public class BattleScene extends ZeldaScene {
 
         Polygon deadTree = new Polygon(cxpos, cypos, cypos.length);
 
-
-        solids.add(leftTreeline);
-        solids.add(rightTreeline);
-        solids.add(deadTree);
+        solids.addAll(List.of(leftTreeline, rightTreeline, deadTree));
 
         gameObjects.add(new Warp(game, 232, 458));
 
         // add Link
         gameObjects.add(game.getLink());
 
-        gameObjects.add(new BlueSoldier(game, 330, 145, Direction.LEFT, 10));
-        gameObjects.add(new BlueSoldier(game, 150, 340, Direction.DOWN, 10));
-        gameObjects.add(new BlueSoldier(game, 135, 135, Direction.RIGHT, 10));
-        gameObjects.add(new BlueSoldier(game, 280, 400, Direction.LEFT, 20));
+        gameObjects.addAll(
+                List.of(
+                        new BlueSoldier(game, 330, 145, Direction.LEFT, 10),
+                        new BlueSoldier(game, 150, 340, Direction.DOWN, 10),
+                        new BlueSoldier(game, 135, 135, Direction.RIGHT, 10),
+                        new BlueSoldier(game, 280, 400, Direction.LEFT, 20),
+                        new GhostSoldier(game, 240, 98, Direction.DOWN)
+                )
+        );
 
-        gameObjects.add(new GhostSoldier(game, 240, 98, Direction.DOWN));
-
-		if (!game.getSong().equals("src/main/resources/static/sounds/boss-bgm.mp3")) {
+        if (!game.getSong().equals("/static/sounds/boss-bgm.mp3")) {
             game.stopMusic();
-            game.playMusic("src/main/resources/static/sounds/boss-bgm.mp3", true);
+            game.playMusic("/static/sounds/boss-bgm.mp3", true);
         }
 
         handleSwitchScene(entrance);
@@ -77,19 +80,19 @@ public class BattleScene extends ZeldaScene {
     }
 
     @Override
-	public void handleSwitchScene(Rectangle exit) {
-		if (exit == warpExit) {
-			game.setScene(new ForrestScene(game, "BattleScene"));
-		}
-	}
+    public void handleSwitchScene(Rectangle exit) {
+        if (exit == warpExit) {
+            game.setScene(new ForrestScene(game, "BattleScene"));
+        }
+    }
 
-	@Override
-	public void handleSwitchScene(String entrance) {
-		if(entrance.equals("warp")) {
-			moveScene(1, 19);
+    @Override
+    public void handleSwitchScene(String entrance) {
+        if (entrance.equals("warp")) {
+            moveScene(1, 19);
 
-			game.getLink().setXHardCore(233);
-			game.getLink().setYHardCore(200);
-		}
-	}
+            game.getLink().setXHardCore(233);
+            game.getLink().setYHardCore(200);
+        }
+    }
 }

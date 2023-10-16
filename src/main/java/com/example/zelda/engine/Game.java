@@ -3,52 +3,48 @@ package com.example.zelda.engine;
 import com.example.zelda.Zelda;
 import com.example.zelda.link.Link;
 import com.example.zelda.menu.MainMenu;
-import com.example.zelda.scene.*;
+import com.example.zelda.scene.ArmosScene;
+import com.example.zelda.scene.BattleScene;
+import com.example.zelda.scene.CastleBasementScene;
+import com.example.zelda.scene.CastleScene;
+import com.example.zelda.scene.DungeonScene;
+import com.example.zelda.scene.ForrestScene;
+import com.example.zelda.scene.HiddenScene;
+import com.example.zelda.scene.HouseScene;
+import com.example.zelda.scene.HyruleScene;
 
 import java.io.*;
 
 /**
- * This class represents the Game: Legend of Zelda: a Link to the Past!
+ * This class represents the Game: Legend of Zelda: A Link to the Past!
  *
  * @author maartenhus
  */
 public class Game {
 	private boolean running = true;
-
-	private boolean paused  = false;
-
+	private boolean paused = false;
 	private int gameSpeed = 10;
 
 	private final Link link;
-
-    private Scene scene;
-
-    private Music music;
+	private Scene scene;
+	private Music music;
 
 	private boolean aPressed = false;
-
-    private boolean sPressed = false;
-
-    private boolean dPressed = false;
-
-    private boolean wPressed = false;
-
-    private boolean jPressed = false;
-
-    private boolean kPressed = false;
-
-    private boolean lPressed = false;
-
+	private boolean sPressed = false;
+	private boolean dPressed = false;
+	private boolean wPressed = false;
+	private boolean jPressed = false;
+	private boolean kPressed = false;
+	private boolean lPressed = false;
 	private boolean enterPressed = false;
 
-    private final long lastHit = System.currentTimeMillis();
+	private final long lastHit = System.currentTimeMillis();
+	private final long lastHit2 = System.currentTimeMillis();
 
-    private final long lastHit2 = System.currentTimeMillis();
-
-    public Game() {
-        link = new Link(this, 100, 100);
+	public Game() {
+		link = new Link(this, 100, 100);
 		scene = new MainMenu(this);
-    }
+	}
 
 	public void quit() {
 		if (music != null)
@@ -57,18 +53,12 @@ public class Game {
 		save();
 
 		try {
-			Thread.sleep(1000); // give it some time to shutdown the music nicely.
+			Thread.sleep(1000); // give it some time to shut down the music nicely.
 		} catch (InterruptedException ignored) {}
 
 		System.exit(0);
 	}
 
-	/**
-	 * Make the game play music.
-	 *
-	 * @param mp3file
-	 * @param loop
-	 */
 	public void playMusic(String mp3file, boolean loop) {
 		var mp3 = Zelda.class.getResource(mp3file);
 		music = new Music(this, mp3, mp3file, loop);
@@ -76,15 +66,12 @@ public class Game {
 	}
 
 	public void stopMusic() {
-		music.stop();
+		if (music != null)
+			music.stop();
 	}
 
 	public String getSong() {
-		if (music == null) {
-			return "";
-		}
-
-		return music.getSong();
+		return music == null ? "" : music.getSong();
 	}
 
 	public void playFx(String mp3file) {
@@ -100,7 +87,7 @@ public class Game {
 		try {
 			fis = new FileInputStream("Zelda.ser");
 			in = new ObjectInputStream(fis);
-			var data = (SaveData)in.readObject();
+			var data = (SaveData) in.readObject();
 
 			var scn = initScene(data.getSceneName());
 
@@ -110,51 +97,24 @@ public class Game {
 			link.setRupee(data.getRupee());
 
 			in.close();
-		} catch(IOException | ClassNotFoundException ex) {
+		} catch (IOException | ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
-    }
+	}
 
 	public Scene initScene(String sceneName) {
-		Scene scn = null;
-
-		if(sceneName.equals("HouseScene")) {
-			scn = new HouseScene(this, "GameStart");
-		}
-
-        if(sceneName.equals("HyruleScene")) {
-			scn = new HyruleScene(this, "HouseScene");
-		}
-
-        if(sceneName.equals("HiddenScene")) {
-			scn = new HiddenScene(this, "HyruleSceneHatch");
-		}
-        
-        if(sceneName.equals("ForrestScene")) {
-            scn = new ForrestScene(this, "HouseScene");
-        }
-
-        if (sceneName.equals("DungeonScene")) {
-            scn = new DungeonScene(this, "GameStart");
-        }
-
-        if (sceneName.equals("CastleScene")) {
-            scn = new CastleScene(this, "HyruleScene");
-        }
-
-		if (sceneName.equals("CastleBasementScene")) {
-            scn = new CastleBasementScene(this, "CastleScene");
-        }
-        
-        if (sceneName.equals("ArmosScene")) {
-            scn = new ArmosScene(this, "CastleBasementScene");
-        }
-
-        if (sceneName.equals("BattleScene")) {
-            scn = new BattleScene(this, "warp");
-        } 
-
-		return scn;
+		return switch (sceneName) {
+			case "HouseScene" -> new HouseScene(this, "GameStart");
+			case "HyruleScene" -> new HyruleScene(this, "HouseScene");
+			case "HiddenScene" -> new HiddenScene(this, "HyruleSceneHatch");
+			case "ForrestScene" -> new ForrestScene(this, "HouseScene");
+			case "DungeonScene" -> new DungeonScene(this, "GameStart");
+			case "CastleScene" -> new CastleScene(this, "HyruleScene");
+			case "CastleBasementScene" -> new CastleBasementScene(this, "CastleScene");
+			case "ArmosScene" -> new ArmosScene(this, "CastleBasementScene");
+			case "BattleScene" -> new BattleScene(this, "warp");
+			default -> null;
+		};
 	}
 
 	public void save() {
@@ -162,11 +122,11 @@ public class Game {
 		ObjectOutputStream out;
 
 		var file = new File("Zelda.ser");
-		
 		try {
 			file.delete();
-		}catch(Exception ignored){}
-		
+		} catch (Exception ignored) {
+		}
+
 		file = new File("Zelda.ser");
 
 		try {
@@ -177,8 +137,7 @@ public class Game {
 
 			out.writeObject(data);
 			out.close();
-		}
-		catch(IOException ex) {
+		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 	}

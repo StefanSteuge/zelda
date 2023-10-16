@@ -10,6 +10,9 @@ import com.example.zelda.items.Rupee;
 import com.example.zelda.karacter.Direction;
 
 import java.awt.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *
@@ -21,7 +24,7 @@ public class CastleScene extends ZeldaScene {
     private final Rectangle exitDown  = new Rectangle(500, 967, 27, 20);
 
     public CastleScene(Game game, String entrance) {
-        super(game, "src/main/resources/static/images/castle.png", "CastleScene");
+        super(game, "/static/images/castle.png", "CastleScene");
 
         exits.add(exitUp);
         exits.add(exitDown);
@@ -163,55 +166,34 @@ public class CastleScene extends ZeldaScene {
 
         var ding3 = new Polygon(xxpos, xypos, xypos.length);
 
-        solids.add(middenbovenmuur);
-        solids.add(stukmuur);
-        solids.add(stukmuur1);
-        solids.add(stukmuur2);
-        solids.add(rechtsonder);
-        solids.add(rechts);
-        solids.add(rechtsmidden);
-        solids.add(linksonder);
-        solids.add(links);
-        solids.add(zuil1);
-        solids.add(zuil2);
-        solids.add(zuil3);
-        solids.add(zuil4);
-        solids.add(zuil5);
-        solids.add(zuil6);
-        solids.add(zuil7);
-        solids.add(zuil);
-        solids.add(midden);
-        solids.add(midden1);
-        solids.add(pot);
-        solids.add(ding);
-        solids.add(pot1);
-        solids.add(ding1);
-        solids.add(ding2);
-        solids.add(ding3);
+        solids.addAll(List.of(middenbovenmuur, stukmuur, stukmuur1, stukmuur2, rechtsonder, rechts, rechtsmidden,
+                              linksonder, links, zuil1, zuil2, zuil3, zuil4, zuil5, zuil6, zuil7, zuil, midden,
+                              midden1, pot, ding, pot1, ding1, ding2, ding3));
 
-        gameObjects.add(new Rupee(game, 131, 96));
-        gameObjects.add(new Rupee(game, 148, 96));
-        gameObjects.add(new Rupee(game, 196, 577));
-        gameObjects.add(new Rupee(game, 1092, 857));
-        gameObjects.add(new Rupee(game, 1036, 425));
-        gameObjects.add(new Heart(game, 812, 57));
-        gameObjects.add(new Heart(game, 52, 577));
 
-        gameObjects.add(game.getLink());
+        Collections.addAll(
+                gameObjects,
+                new Rupee(game, 131, 96),
+                new Rupee(game, 148, 96),
+                new Rupee(game, 196, 577),
+                new Rupee(game, 1092, 857),
+                new Rupee(game, 1036, 425),
+                new Heart(game, 812, 57),
+                new Heart(game, 52, 577),
+                game.getLink(),
+                new Guard(game, 118, 971, Direction.UP),
+                new Guard(game, 885, 968, Direction.UP),
+                new Guard(game, 504, 564, Direction.DOWN),
+                new BlueSoldier(game, 331, 762, Direction.RIGHT, 50),
+                new BlueSoldier(game, 689, 762, Direction.LEFT, 50),
+                new WhiteSoldier(game, 1038, 681, Direction.LEFT),
+                new BlueSoldier(game, 883, 144, Direction.UP, 200),
+                new BlueSoldier(game, 116, 144, Direction.UP, 200)
+        );
 
-        gameObjects.add(new Guard(game, 118, 971, Direction.UP));
-        gameObjects.add(new Guard(game, 885, 968, Direction.UP));
-        gameObjects.add(new Guard(game, 504, 564, Direction.DOWN));
-
-        gameObjects.add(new BlueSoldier(game, 331, 762, Direction.RIGHT, 50));
-        gameObjects.add(new BlueSoldier(game, 689, 762, Direction.LEFT, 50));
-        gameObjects.add(new WhiteSoldier(game, 1038, 681, Direction.LEFT));
-        gameObjects.add(new BlueSoldier(game, 883, 144, Direction.UP, 200));
-        gameObjects.add(new BlueSoldier(game, 116, 144, Direction.UP, 200));
-
-        if (!game.getSong().equals("src/main/resources/static/sounds/castle.mp3")) {
+        if (!game.getSong().equals("/static/sounds/castle.mp3")) {
             game.stopMusic();
-            game.playMusic("src/main/resources/static/sounds/castle.mp3", true);
+            game.playMusic("/static/sounds/castle.mp3", true);
         }
 
         handleSwitchScene(entrance);
@@ -242,13 +224,11 @@ public class CastleScene extends ZeldaScene {
     public void handleSwitchScene(String entrance) {
         if (entrance.equals("HyruleScene")) {
             moveScene(252, 607);
-
             game.getLink().setXHardCore(250);
             game.getLink().setYHardCore(326);
         }
         if (entrance.equals("CastleBasementScene")) {
 			moveScene(254, 1);
-
 			game.getLink().setXHardCore(250);
             game.getLink().setYHardCore(119);
         }

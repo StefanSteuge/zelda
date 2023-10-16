@@ -1,6 +1,5 @@
 package com.example.zelda.link;
 
-
 import com.example.zelda.enemy.Soldier;
 import com.example.zelda.enemy.armos.ArmosKnight;
 import com.example.zelda.engine.GObject;
@@ -11,7 +10,7 @@ import com.example.zelda.items.Rupee;
 import com.example.zelda.karacter.Direction;
 import com.example.zelda.karacter.Karacter;
 
-import java.awt.*;
+import java.awt.Rectangle;
 
 /**
  * The players avatar in the game.
@@ -20,17 +19,18 @@ import java.awt.*;
  */
 public class Link extends Karacter {
 	private long lastInput = System.currentTimeMillis();
-
-    private long lastHit = System.currentTimeMillis();
-
+	private long lastHit = System.currentTimeMillis();
 	private long lastBom = System.currentTimeMillis();
-
 	private long lastArrow = System.currentTimeMillis();
-
-    private int rupee = 0;
+	private int rupee = 0;
 
 	public Link(Game game, int x, int y) {
-		super(game, x, y, 17, 20, Direction.DOWN, "src/main/resources/static/images/link.png");
+		super(game, x, y, 17, 20, Direction.DOWN, "/static/images/link.png");
+		setupSpriteLocations();
+		setupInitialState();
+	}
+
+	private void setupSpriteLocations() {
 		spriteLoc.put("Link walk down 1",		new Rectangle(0, 0, 16, 23));
 		spriteLoc.put("Link walk down 2",		new Rectangle(25, 0, 16, 23));
 		spriteLoc.put("Link walk down 3",		new Rectangle(50, 0, 16, 23));
@@ -100,56 +100,59 @@ public class Link extends Karacter {
 		spriteLoc.put("Link sword left 8",		new Rectangle(125, 253, 28, 28));
 		spriteLoc.put("Link sword left 9",		new Rectangle(153, 250, 22, 31));
 
-        spriteLoc.put("Link bow down 1",		new Rectangle(0, 300, 17, 25));
+		spriteLoc.put("Link bow down 1",		new Rectangle(0, 300, 17, 25));
 		spriteLoc.put("Link bow down 2",		new Rectangle(25, 300, 18, 21));
 		spriteLoc.put("Link bow down 3",		new Rectangle(50, 300, 18, 22));
 
-        spriteLoc.put("Link bow left 1",		new Rectangle(0, 325, 17, 22));
+		spriteLoc.put("Link bow left 1",		new Rectangle(0, 325, 17, 22));
 		spriteLoc.put("Link bow left 2",		new Rectangle(25, 325, 19, 21));
 		spriteLoc.put("Link bow left 3",		new Rectangle(50, 325, 20, 20));
 
-        spriteLoc.put("Link bow right 1",		new Rectangle(0, 350, 17, 23));
+		spriteLoc.put("Link bow right 1",		new Rectangle(0, 350, 17, 23));
 		spriteLoc.put("Link bow right 2",		new Rectangle(25, 350, 22, 23));
 
-        spriteLoc.put("Link bow up 1",          new Rectangle(0, 375, 18, 22));
+		spriteLoc.put("Link bow up 1",          new Rectangle(0, 375, 18, 22));
 		spriteLoc.put("Link bow up 2",          new Rectangle(25, 375, 21, 21));
 		spriteLoc.put("Link bow up 3",          new Rectangle(50, 375, 21, 22));
 
-        spriteLoc.put("Link hit right",         new Rectangle(0, 425, 17, 21));
-        spriteLoc.put("Link death right",       new Rectangle(50, 425, 27, 15));
+		spriteLoc.put("Link hit right",         new Rectangle(0, 425, 17, 21));
+		spriteLoc.put("Link death right",       new Rectangle(50, 425, 27, 15));
 		spriteLoc.put("Link death right 2",     new Rectangle(25, 425, 27, 19));
-		
 
-        spriteLoc.put("Link hit left",          new Rectangle(0, 450, 17, 21));
-        spriteLoc.put("Link death left",        new Rectangle(50, 450, 24, 15));
+
+		spriteLoc.put("Link hit left",          new Rectangle(0, 450, 17, 21));
+		spriteLoc.put("Link death left",        new Rectangle(50, 450, 24, 15));
 		spriteLoc.put("Link death left 2",      new Rectangle(25, 450, 23, 19));
-		
-        
+
+
 		sprite.setSprite(spriteLoc.get("Link stand down"));
 
+	}
+
+	private void setupInitialState() {
 		z = 2;
-        health = 5;
-
+		health = 5;
 		screenAdjust = false;
-
 		state = new StandState(this);
 	}
 
-    public void dropBomb() {
+	public void dropBomb() {
+		// Implement bomb dropping logic here
 		long bomInterval = 3000;
 		if (System.currentTimeMillis() > lastBom + bomInterval) {
-            switch (direction) {
-                case UP -> game.getScene().addNewGObject(new Bomb(game, x + 2, y - 16));
-                case DOWN -> game.getScene().addNewGObject(new Bomb(game, x + 2, y + getHeight()));
-                case LEFT -> game.getScene().addNewGObject(new Bomb(game, x - 13, y + 7));
-                case RIGHT -> game.getScene().addNewGObject(new Bomb(game, x + getWidth(), y + 7));
-            }
+			switch (direction) {
+				case UP -> game.getScene().addNewGObject(new Bomb(game, x + 2, y - 16));
+				case DOWN -> game.getScene().addNewGObject(new Bomb(game, x + 2, y + getHeight()));
+				case LEFT -> game.getScene().addNewGObject(new Bomb(game, x - 13, y + 7));
+				case RIGHT -> game.getScene().addNewGObject(new Bomb(game, x + getWidth(), y + 7));
+			}
 
 			lastBom = System.currentTimeMillis();
 		}
-    }
+	}
 
 	public void shootArrow() {
+		// Implement arrow shooting logic here
 		long arrowInterval = 1000;
 		if (System.currentTimeMillis() > lastArrow + arrowInterval) {
 			setState(new BowState(this));
@@ -158,9 +161,6 @@ public class Link extends Karacter {
 	}
 
 	public void handleInput() {
-		//System.out.println("Link is at:");
-		//System.out.println(x + ", " + y);
-
 		long inputInterval = 50;
 		if (System.currentTimeMillis() > lastInput + inputInterval) {
 			state.handleInput();
@@ -175,63 +175,60 @@ public class Link extends Karacter {
 
 	@Override
 	protected void collision(GObject hitObject) {
-        if (health == 0) {
-            if(!getStateString().equals("DeathState")) {
+		if (health == 0) {
+			if (!getStateString().equals("DeathState")) {
 				game.stopMusic();
-                game.playFx("src/main/resources/static/sounds/killed.mp3");
-                setState(new DeathState(this, getDirection()));
-                //alive = false;
-            }            
-        }
-		if (hitObject instanceof Soldier) {
-            if (health > 0 && System.currentTimeMillis() > lastHit + 800) {
-               game.playFx("src/main/resources/static/sounds/linkHurt.mp3");
-               health --;
-               lastHit = System.currentTimeMillis();
-
-               //System.out.println("leven: " + health);
-               Soldier soldier = (Soldier)hitObject;
-               setState(new TransState(this, soldier.getDirection()));
-            }
-        }
-        if (hitObject instanceof ArmosKnight) {
-            if (health > 0 && System.currentTimeMillis() > lastHit + 800) {
-               game.playFx("src/main/resources/static/sounds/linkHurt.mp3");
-               health --;
-               lastHit = System.currentTimeMillis();
-
-               //System.out.println("leven: " + health);
-               ArmosKnight armosKnight = (ArmosKnight)hitObject;
-               setState(new TransState(this, armosKnight.getDirection()));
-            }
+				game.playFx("/static/sounds/killed.mp3");
+				setState(new DeathState(this, getDirection()));
+			}
 		}
-        if (hitObject instanceof Heart) {
-            if (health < 5) {
-               game.playFx("src/main/resources/static/sounds/getItem.mp3");
-               health++;
-            }
-        }
+		if (hitObject instanceof Soldier) {
+			if (health > 0 && System.currentTimeMillis() > lastHit + 800) {
+				game.playFx("/static/sounds/linkHurt.mp3");
+				health --;
+				lastHit = System.currentTimeMillis();
 
-        if (hitObject instanceof Rupee) {
-            game.playFx("src/main/resources/static/sounds/getItem.mp3");
-            rupee += 5;
-        }
-   }
+				Soldier soldier = (Soldier)hitObject;
+				setState(new TransState(this, soldier.getDirection()));
+			}
+		}
+		if (hitObject instanceof ArmosKnight) {
+			if (health > 0 && System.currentTimeMillis() > lastHit + 800) {
+				game.playFx("/static/sounds/linkHurt.mp3");
+				health --;
+				lastHit = System.currentTimeMillis();
 
-	//Handy dandy stuff that handles input
-	public boolean moveinput() {
+				ArmosKnight armosKnight = (ArmosKnight)hitObject;
+				setState(new TransState(this, armosKnight.getDirection()));
+			}
+		}
+		if (hitObject instanceof Heart) {
+			if (health < 5) {
+				game.playFx("/static/sounds/getItem.mp3");
+				health++;
+			}
+		}
+		if (hitObject instanceof Rupee) {
+			game.playFx("/static/sounds/getItem.mp3");
+			rupee += 5;
+		}
+	}
+
+	public boolean moveInput() {
 		return (game.isaPressed() || game.isdPressed() || game.iswPressed() || game.issPressed());
 	}
 
-	public boolean noMoveinput() {
-        return (!game.isaPressed() && !game.isdPressed() && !game.iswPressed() && !game.issPressed());
+	public boolean noMoveInput() {
+		return (!game.isaPressed() && !game.isdPressed() && !game.iswPressed() && !game.issPressed());
 	}
 
-    public int getRupee() {
-        return rupee;
-    }
+	public int getRupee() {
+		return rupee;
+	}
 
-    public void setRupee(int rupee) {
-        this.rupee = rupee;
-    }
+	public void setRupee(int rupee) {
+		this.rupee = rupee;
+	}
 }
+
+
