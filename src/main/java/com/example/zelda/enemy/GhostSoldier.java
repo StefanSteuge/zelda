@@ -14,14 +14,14 @@ import com.example.zelda.karacter.Direction;
 public class GhostSoldier extends Soldier implements Hittable {
 
     public GhostSoldier(Game game, int x, int y, Direction direction) {
-        super(game, x, y, direction, "src/main/resources/static/images/boss.png");
+        super(game, x, y, direction, "/static/images/boss.png");
         behavior = new AttackBehavior(this);
         health = 20;
     }
 
     public void hitBy(Weapon weapon) {
         if (health >= 1) {
-            game.playFx("src/main/resources/static/sounds/enemyHit.mp3");
+            game.playFx("/static/sounds/enemyHit.mp3");
         }
 
         switch (weapon) {
@@ -50,7 +50,7 @@ public class GhostSoldier extends Soldier implements Hittable {
 
         if (health <= 0) {
             alive = false;
-            game.playFx("src/main/resources/static/sounds/enemyDie.mp3");
+            game.playFx("/static/sounds/enemyDie.mp3");
             randomGoodie();
         }
     }

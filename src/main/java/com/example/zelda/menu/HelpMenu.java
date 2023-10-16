@@ -14,7 +14,7 @@ public class HelpMenu extends Scene {
 	private long lastInput = System.currentTimeMillis();
 
 	public HelpMenu(Game game) {
-		super(game, "src/main/resources/static/images/help-menu.png", "HelpMenu");
+		super(game, "/static/images/help-menu.png", "HelpMenu");
 
 		sprite.setSprite(new Rectangle(0, 0, game.getWidth(), game.getHeight()));
 
@@ -22,7 +22,7 @@ public class HelpMenu extends Scene {
 			game.stopMusic();
 		}catch(Exception ignored){}
 
-		game.playMusic("src/main/resources/static/sounds/help-menu.mp3", false);
+		game.playMusic("/static/sounds/help-menu.mp3", false);
 	}
 
 	@Override

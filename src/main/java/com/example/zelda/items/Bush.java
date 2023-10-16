@@ -15,7 +15,7 @@ import java.awt.*;
 public class Bush extends GObject implements Hittable {
 
     public Bush(Game game, int x, int y) {
-        super(game, x, y, 16, 14, "src/main/resources/static/images/items.png");
+        super(game, x, y, 16, 14, "/static/images/items.png");
         spriteLoc.put("bush", new Rectangle(0, 0, 16, 15));
         spriteLoc.put("stump", new Rectangle(17, 0, 16, 15));
         
@@ -29,7 +29,7 @@ public class Bush extends GObject implements Hittable {
             String[] bushani = {"stump"};
             setAnimation(bushani);
             if (liquid == false) {
-                game.playFx("src/main/resources/static/sounds/bushCut.mp3");
+                game.playFx("/static/sounds/bushCut.mp3");
 
                 randomGoodie();
             }
@@ -40,7 +40,7 @@ public class Bush extends GObject implements Hittable {
             String[] bushani = {"stump"};
             setAnimation(bushani);
             if (!liquid) {
-                game.playFx("src/main/resources/static/sounds/bushCut.mp3");
+                game.playFx("/static/sounds/bushCut.mp3");
 
                 randomGoodie();
             }

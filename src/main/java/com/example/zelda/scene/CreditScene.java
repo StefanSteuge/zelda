@@ -16,11 +16,11 @@ import java.awt.*;
  */
 public class CreditScene extends ZeldaScene {
     public CreditScene(Game game) {
-        super(game, "src/main/resources/static/images/aftitel.png", "CreditScene");
+        super(game, "/static/images/aftitel.png", "CreditScene");
 
-         if (!game.getSong().equals("src/main/resources/static/sounds/credits.mp3")) {
+         if (!game.getSong().equals("/static/sounds/credits.mp3")) {
             game.stopMusic();
-            game.playMusic("src/main/resources/static/sounds/credits.mp3", true);
+            game.playMusic("/static/sounds/credits.mp3", true);
             }
 
     }

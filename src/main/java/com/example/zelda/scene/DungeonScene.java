@@ -19,7 +19,7 @@ public class DungeonScene extends ZeldaScene {
 
 
     public DungeonScene(Game game, String entrance) {
-        super(game, "src/main/resources/static/images/kerker.png", "DungeonScene");
+        super(game, "/static/images/kerker.png", "DungeonScene");
 
         exits.add(zeldaExit);
 
@@ -54,9 +54,9 @@ public class DungeonScene extends ZeldaScene {
 
         gameObjects.add(game.getLink());
 
-		if (!game.getSong().equals("src/main/resources/static/sounds/castle.mp3")) {
+		if (!game.getSong().equals("/static/sounds/castle.mp3")) {
             game.stopMusic();
-            game.playMusic("src/main/resources/static/sounds/castle.mp3", true);
+            game.playMusic("/static/sounds/castle.mp3", true);
 		}
 
         handleSwitchScene(entrance);

@@ -39,7 +39,7 @@ public class Arrow extends GObject {
     private final Direction direction;
 	
     public Arrow(Game game, int x, int y) {
-        super(game, x, y, 13, 4, "src/main/resources/static/images/arrows.png");
+        super(game, x, y, 13, 4, "/static/images/arrows.png");
 
         // Arrow Direction only
         spriteLoc.put("arrowRight", new Rectangle(75, 0, 17, 6));
@@ -86,7 +86,7 @@ public class Arrow extends GObject {
             }
         }
 
-		game.playFx("src/main/resources/static/sounds/bowArrow.mp3");
+		game.playFx("/static/sounds/bowArrow.mp3");
     }
 
 	@Override

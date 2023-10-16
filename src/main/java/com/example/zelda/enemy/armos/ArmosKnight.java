@@ -22,7 +22,7 @@ public class ArmosKnight extends Karacter implements Hittable {
     protected long lastHit = System.currentTimeMillis();
 
     public ArmosKnight(Game game, int x, int y, Direction direction) {
-        super(game, x, y, 32, 52, direction, "src/main/resources/static/images/armos.png");
+        super(game, x, y, 32, 52, direction, "/static/images/armos.png");
 
         spriteLoc.put("1", new Rectangle(0, 0, 32, 52));
         spriteLoc.put("2", new Rectangle(32, 0, 32, 52));
@@ -57,7 +57,7 @@ public class ArmosKnight extends Karacter implements Hittable {
 
     public void hitBy(Weapon weapon) {
         if (health >= 25) {
-            game.playFx("src/main/resources/static/sounds/enemyHit.mp3");
+            game.playFx("/static/sounds/enemyHit.mp3");
         }
 
         switch (weapon) {
@@ -85,7 +85,7 @@ public class ArmosKnight extends Karacter implements Hittable {
         }
         if (health <= 0) {
             alive = false;
-            game.playFx("src/main/resources/static/sounds/enemyDie.mp3");
+            game.playFx("/static/sounds/enemyDie.mp3");
             randomGoodie();
         }
     }

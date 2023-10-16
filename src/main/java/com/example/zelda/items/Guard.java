@@ -23,7 +23,7 @@ public class Guard extends GObject {
 
 
     public Guard(Game game, int x, int y, Direction direction) {
-        super(game, x, y, 25, 25, "src/main/resources/static/images/items.png");
+        super(game, x, y, 25, 25, "/static/images/items.png");
 
         spriteLoc.put("DOWN",	new Rectangle(0, 25, 25, 30));
         spriteLoc.put("LEFT",	new Rectangle(25, 25, 21, 28));

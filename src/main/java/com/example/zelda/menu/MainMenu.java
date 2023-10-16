@@ -23,7 +23,7 @@ public class MainMenu extends Scene {
 	private long lastInput = System.currentTimeMillis();
 
 	public MainMenu(Game game) {
-		super(game, "src/main/resources/static/images/main-menu.png", "MainMenu");
+		super(game, "/static/images/main-menu.png", "MainMenu");
 
 		sprite.setSprite(new Rectangle(0, 0, game.getWidth(), game.getHeight()));
 
@@ -33,7 +33,7 @@ public class MainMenu extends Scene {
 			game.stopMusic();
 		}catch(Exception ignored){}
 
-		game.playMusic("src/main/resources/static/sounds/main-menu.mp3", false);
+		game.playMusic("/static/sounds/main-menu.mp3", false);
 	}
 
 	@Override

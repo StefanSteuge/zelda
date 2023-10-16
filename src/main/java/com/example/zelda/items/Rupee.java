@@ -17,7 +17,7 @@ public class Rupee extends GObject {
             "rupee1", "rupee1", "rupee1", "rupee1", "rupee1", "rupee1"};
 
     public Rupee (Game game, int x, int y) {
-       super(game, x, y, 8, 14, "src/main/resources/static/images/rupee.png");
+       super(game, x, y, 8, 14, "/static/images/rupee.png");
        spriteLoc.put("rupee1", new Rectangle(0, 0, 8, 14));
        spriteLoc.put("rupee2", new Rectangle(25, 0, 8, 14));
        spriteLoc.put("rupee3", new Rectangle(50, 0, 8, 14));

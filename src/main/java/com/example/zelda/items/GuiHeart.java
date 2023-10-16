@@ -20,7 +20,7 @@ public class GuiHeart extends GObject {
     private boolean full = true;
 
     public GuiHeart(Game game, int x, int y) {
-        super(game, x, y, 11, 10, "src/main/resources/static/images/guihearts2.png");
+        super(game, x, y, 11, 10, "/static/images/guihearts2.png");
         spriteLoc.put("full", new Rectangle(0, 0, 11, 10));
         spriteLoc.put("empty", new Rectangle(11, 0, 11, 10));
 
@@ -30,7 +30,7 @@ public class GuiHeart extends GObject {
 		z = 2;
 
 		screenAdjust = false;
-        checkcollision = false;
+        checkCollision = false;
         liquid = true;
 
         if(i < 5) {

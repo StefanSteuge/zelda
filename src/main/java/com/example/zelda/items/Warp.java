@@ -15,7 +15,7 @@ public class Warp extends GObject {
     private final static String[] emptyani = {"Warp4"};
 
 	public Warp(Game game, int x, int y) {
-		super(game, x, y, 1, 1, "src/main/resources/static/images/items.png");
+		super(game, x, y, 1, 1, "/static/images/items.png");
 		
 		spriteLoc.put("Warp1", new Rectangle(40, 0, 16, 16));
 		spriteLoc.put("Warp2", new Rectangle(60, 0, 16, 16));

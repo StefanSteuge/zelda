@@ -38,32 +38,32 @@ public class SwordState extends LinkState {
 		oldX = link.getX();
 		oldY = link.getY();
 		oldAnimationInterval = link.getAnimationInterval();
-		link.setCheckcollision(false);
+		link.setCheckCollision(false);
 
         switch (link.getDirection()) {
             case UP -> {
                 link.setAnimation(upAnimation);
                 link.setAnimationInterval(20);
                 sword = new Rectangle(oldX - 10, oldY - 10, 30, 10);
-                game.playFx("src/main/resources/static/sounds/swordSlash1.mp3");
+                game.playFx("/static/sounds/swordSlash1.mp3");
             }
             case DOWN -> {
                 link.setAnimation(downAnimation);
                 link.setAnimationInterval(30);
                 sword = new Rectangle(oldX, oldY + link.getHeight(), 25, 10);
-                game.playFx("src/main/resources/static/sounds/swordSlash2.mp3");
+                game.playFx("/static/sounds/swordSlash2.mp3");
             }
             case LEFT -> {
                 link.setAnimation(leftAnimation);
                 link.setAnimationInterval(20);
                 sword = new Rectangle(oldX - 10, oldY, 20, 30);
-                game.playFx("src/main/resources/static/sounds/swordSlash3.mp3");
+                game.playFx("/static/sounds/swordSlash3.mp3");
             }
             case RIGHT -> {
                 link.setAnimation(rightAnimation);
                 link.setAnimationInterval(20);
                 sword = new Rectangle(oldX + link.getWidth(), oldY, 13, 28);
-                game.playFx("src/main/resources/static/sounds/swordSlash4.mp3");
+                game.playFx("/static/sounds/swordSlash4.mp3");
             }
         }
 
@@ -94,7 +94,7 @@ public class SwordState extends LinkState {
 			link.setY(oldY);
 			link.setX(oldX);
 			link.setAnimationInterval(oldAnimationInterval);
-			link.setCheckcollision(true);
+			link.setCheckCollision(true);
 			link.setState(new StandState(link));
 			game.getScene().removeHitter(sword);
 		} else {

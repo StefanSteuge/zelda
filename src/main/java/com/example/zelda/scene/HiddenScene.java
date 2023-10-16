@@ -18,7 +18,7 @@ public class HiddenScene extends ZeldaScene {
     private final Rectangle exitDown = new Rectangle(116, 449, 20, 20);
 
     public HiddenScene(Game game, String entrance) {
-        super(game, "src/main/resources/static/images/hiddenpath.png", "HiddenScene");
+        super(game, "/static/images/hiddenpath.png", "HiddenScene");
         exits.add(exitDown);
 
         int[] hxpos = {385, 446, 446, 112, 112, 111, 95, 96, 112, 113, 113, 72, 72, 115, 113,
@@ -73,9 +73,9 @@ public class HiddenScene extends ZeldaScene {
         gameObjects.add(new WhiteSoldier(game, 121, 337, Direction.LEFT));
         gameObjects.add(new WhiteSoldier(game, 325, 331, Direction.LEFT));
 
-		if (!game.getSong().equals("src/main/resources/static/sounds/cave.mp3")) {
+		if (!game.getSong().equals("/static/sounds/cave.mp3")) {
 			game.stopMusic();
-            game.playMusic("src/main/resources/static/sounds/cave.mp3", true);
+            game.playMusic("/static/sounds/cave.mp3", true);
         }
 
         handleSwitchScene(entrance);

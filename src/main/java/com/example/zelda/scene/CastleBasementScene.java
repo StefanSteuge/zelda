@@ -20,7 +20,7 @@ public class CastleBasementScene extends ZeldaScene {
     private final Rectangle exitUp   = new Rectangle(749, 56, 27, 20);
 
     public CastleBasementScene(Game game, String entrance) {
-        super(game, "src/main/resources/static/images/castlebasement.png", "CastleBasementScene");
+        super(game, "/static/images/castleBasement.png", "CastleBasementScene");
 
         exits.add(warpExit);
         exits.add(exitUp);
@@ -127,9 +127,9 @@ public class CastleBasementScene extends ZeldaScene {
 
         gameObjects.add(new Warp(game, 160, 91));
 
-        if (!game.getSong().equals("src/main/resources/static/sounds/castle.mp3")) {
+        if (!game.getSong().equals("/static/sounds/castle.mp3")) {
             game.stopMusic();
-            game.playMusic("src/main/resources/static/sounds/castle.mp3", true);
+            game.playMusic("/static/sounds/castle.mp3", true);
 		}
 
         handleSwitchScene(entrance);

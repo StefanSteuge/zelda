@@ -19,7 +19,7 @@ public class ArmosScene extends ZeldaScene {
 	private boolean warpVisible = false;
 
     public ArmosScene(Game game, String entrance) {
-        super(game, "src/main/resources/static/images/battle-scene.png", "ArmosScene");
+        super(game, "/static/images/battle-scene.png", "ArmosScene");
 
 		exits.add(warpExit);
 
@@ -55,9 +55,9 @@ public class ArmosScene extends ZeldaScene {
         gameObjects.add(new ArmosKnight(game, 83, 236, Direction.LEFT));
         gameObjects.add(new ArmosKnight(game, 422, 251, Direction.RIGHT));
 
-		if (!game.getSong().equals("src/main/resources/static/sounds/boss-bgm.mp3")) {
+		if (!game.getSong().equals("/static/sounds/boss-bgm.mp3")) {
             game.stopMusic();
-            game.playMusic("src/main/resources/static/sounds/boss-bgm.mp3", true);
+            game.playMusic("/static/sounds/boss-bgm.mp3", true);
         }
 
         handleSwitchScene(entrance);
@@ -89,7 +89,7 @@ public class ArmosScene extends ZeldaScene {
 
 		if (dead && !warpVisible) {
 			game.stopMusic();
-            game.playMusic("src/main/resources/static/sounds/fanfare.mp3", false);
+            game.playMusic("/static/sounds/fanfare.mp3", false);
             
             warp.setActive();
 			warpVisible = true;

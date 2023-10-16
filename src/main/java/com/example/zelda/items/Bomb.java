@@ -27,7 +27,7 @@ public class Bomb extends GObject {
     private Rectangle bomb;
 
     public Bomb(Game game, int x, int y) {
-        super(game, x, y, 13, 16, "src/main/resources/static/images/bombs.png");
+        super(game, x, y, 13, 16, "/static/images/bombs.png");
 		
         spriteLoc.put("bomb1", new Rectangle(0, 0, 13, 16));
         spriteLoc.put("bomb2", new Rectangle(13, 0, 13, 16));
@@ -45,7 +45,7 @@ public class Bomb extends GObject {
         this.setAnimationInterval(50); //keep on 50 for 2.5 sec bomb countdown.
 
 		liquid = true;
-		checkcollision = false;
+		checkCollision = false;
         
         behavior = new BombBehavior(this);
     }
@@ -53,10 +53,10 @@ public class Bomb extends GObject {
     @Override
 	public void preAnimation() {
         if (animationCounter == 1) {
-            game.playFx("src/main/resources/static/sounds/linkBounce.mp3");
+            game.playFx("/static/sounds/linkBounce.mp3");
         }
         if(animationCounter == 48) {
-            game.playFx("src/main/resources/static/sounds/bombExplode.mp3");
+            game.playFx("/static/sounds/bombExplode.mp3");
             
             x -= 8;
             y -= 6;
