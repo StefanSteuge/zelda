@@ -2,7 +2,7 @@ package com.example.zelda;
 
 import com.example.zelda.engine.Game;
 
-import java.awt.*;
+import java.awt.Polygon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

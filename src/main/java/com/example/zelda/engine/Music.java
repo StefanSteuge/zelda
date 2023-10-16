@@ -8,14 +8,14 @@ import java.net.URL;
  * @author maartenhus
  */
 public class Music extends Sound {
-	private String songname = "";
+	private String songName = "";
 	private final boolean loop;
 
-	public Music(Game game, URL mp3, String songname, boolean loop) {
+	public Music(Game game, URL mp3, String songName, boolean loop) {
 		super(game, mp3);
 
 		this.loop = loop;
-		this.songname = songname;
+		this.songName = songName;
 	}
 
 	public void run() {
@@ -29,7 +29,7 @@ public class Music extends Sound {
 		}
 
 		if (loop) {//if song is over but its on a loop replay the song.
-			game.playMusic(songname, true);
+			game.playMusic(songName, true);
 		}
 
 		player.close();
@@ -40,6 +40,6 @@ public class Music extends Sound {
 	}
 
 	public String getSong() {
-		return songname;
+		return songName;
 	}
 }

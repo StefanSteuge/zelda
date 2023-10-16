@@ -26,7 +26,7 @@ public class BowState extends LinkState {
         oldX = link.getX();
         oldY = link.getY();
 
-		link.setCheckcollision(false);
+		link.setCheckCollision(false);
 
         switch (link.getDirection()) {
             case UP -> {
@@ -55,7 +55,7 @@ public class BowState extends LinkState {
 		if (animationCounter == link.getAnimation().length) {
             link.setY(oldY);
 			link.setX(oldX);
-			link.setCheckcollision(true);
+			link.setCheckCollision(true);
 			link.setState(new StandState(link));;
 		} else {
             Direction dir = link.getDirection();

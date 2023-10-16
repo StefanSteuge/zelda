@@ -28,7 +28,7 @@ public abstract class GObject implements DrawAble {
 
 	protected int height;
 
-	protected boolean checkcollision = true; // Should the objects check for collisions when x or y moves.
+	protected boolean checkCollision = true; // Should the objects check for collisions when x or y moves.
 
 	protected boolean liquid = false;		 // Can other GObjects move through the object.
 
@@ -128,7 +128,7 @@ public abstract class GObject implements DrawAble {
 		}
 
 		for (GObject obj : game.getScene().getGObjects()) {
-			if(obj.isCheckcollision()) {
+			if(obj.isCheckCollision()) {
 				final Area area = new Area();
 				area.add(new Area(rect));
 				area.intersect(new Area(obj.getRectangle()));
@@ -152,7 +152,7 @@ public abstract class GObject implements DrawAble {
 	}
 
 	public void setX(int newX) {
-		if (!checkcollision || !isCollision(newX, y)) {
+		if (!checkCollision || !isCollision(newX, y)) {
 			x = newX;
 		}
 	}
@@ -162,7 +162,7 @@ public abstract class GObject implements DrawAble {
 	}
 
 	public void setY(int newY) {
-		if (!checkcollision || !isCollision(x, newY)) {
+		if (!checkCollision || !isCollision(x, newY)) {
 			y = newY;
 		}
 	}
@@ -235,12 +235,12 @@ public abstract class GObject implements DrawAble {
 		this.animationInterval = animationInterval;
 	}
 
-	public boolean isCheckcollision() {
-		return checkcollision;
+	public boolean isCheckCollision() {
+		return checkCollision;
 	}
 
-	public void setCheckcollision(boolean checkcollision) {
-		this.checkcollision = checkcollision;
+	public void setCheckCollision(boolean checkCollision) {
+		this.checkCollision = checkCollision;
 	}
 
 	public boolean isLiquid() {

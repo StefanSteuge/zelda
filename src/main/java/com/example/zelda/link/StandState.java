@@ -32,7 +32,7 @@ public class StandState extends LinkState {
         } else if(game.iskPressed()) {
             link.shootArrow();
         } else {
-			if (link.moveinput())
+			if (link.moveInput())
 				link.setState(new WalkState(link));
 		}
 	}

@@ -4,7 +4,7 @@ package com.example.zelda;
 import com.example.zelda.engine.GObject;
 import com.example.zelda.engine.Game;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 

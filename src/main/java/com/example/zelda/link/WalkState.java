@@ -30,7 +30,7 @@ public class WalkState extends LinkState {
 		if(game.isjPressed()) {
 			link.setState(new SwordState(link));
 		} else {
-			if (link.noMoveinput()) {
+			if (link.noMoveInput()) {
 				link.setState(new StandState(link));
 			} else if(game.islPressed()) {
                 link.dropBomb();
