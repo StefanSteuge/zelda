@@ -1,6 +1,6 @@
 package com.example.zelda.scene.util;
 
-public class CoordinateConstants {
+public class CoordinateConstantsHyruleScene {
     public static final int HATCH_X = 904;
     public static final int HATCH_Y = 166;
     public static final int EXIT_DOWN_X = 672;
@@ -26,14 +26,14 @@ public class CoordinateConstants {
     public static int[] WALL1_Y = {53, 55, 47, 47, 73, 75, 82, 91, 91, 98, 92, 95, 91, 86, 80, 77, 73, 50, 50, 183, 185, 199, 200, 212, 212, 295, 297, 310, 310, 615, 630, 629, 672, 675, 667, 667, 713, 712, 883, 886, 900, 908, 913, 922, 922, 935, 924, 926, 916, 910, 904, 887, 886, 935, 988, 988, 921, 850, 846, 776, 772, 727, 724, 593, 570, 245, 210, 42, 15, 15, 9, 9};
     public static int[] WALL2_X = {563, 637, 637, 562};
     public static int[] WALL2_Y = {684, 683, 673, 671};
-    public static int[] DOWN_WALL1_X = {34, 92, 117, 44, 35};
-    public static int[] DOWN_WALL1_Y = {932, 950, 1006, 1000, 932};
+    public static int[] DOWN_WALL1_X = {34, 92, 117, 44, 35,};
+    public static int[] DOWN_WALL1_Y = {932, 950, 1006, 1000, 932,};
     public static int[] DOWN_WALL2_X = {181, 210, 211, 638, 668, 180};
     public static int[] DOWN_WALL2_Y = {1004, 992, 956, 953, 1010, 1008};
     public static int[] BUSH1_X = {426, 445, 446, 426, 426};
     public static int[] BUSH1_Y = {281, 281, 350, 350, 285};
-    public static int[] BUSH2_X = {426, 444, 446, 424, 426};
-    public static int[] BUSH2_Y = {379, 378, 412, 414, 379};
+    public static int[] BUSH2_X = {426, 444, 446, 424, 426,};
+    public static int[] BUSH2_Y = {379, 378, 412, 414, 379,};
     public static int[] BUSH3_X = {425, 444, 445, 427, 426};
     public static int[] BUSH3_Y = {443, 443, 483, 483, 442};
     public static int[] BALK_X = {751, 735, 737, 751, 752};
