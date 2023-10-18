@@ -1,80 +1,89 @@
 package com.example.zelda.scene;
 
 
-
 import com.example.zelda.enemy.WhiteSoldier;
 import com.example.zelda.engine.Game;
 import com.example.zelda.items.Rupee;
 import com.example.zelda.karacter.Direction;
 
-import java.awt.*;
+import java.awt.Polygon;
+import java.awt.Rectangle;
+import java.util.List;
+
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.EXIT_DOWN_X;
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.EXIT_DOWN_Y;
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.UITGANG_X;
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.UITGANG_Y;
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.WALL1_X;
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.WALL1_Y;
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.WALL2_X;
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.WALL2_Y;
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.WALL3_X;
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.WALL3_Y;
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.WALL_X;
+import static com.example.zelda.scene.util.CoordinateConstantsHiddenScene.WALL_Y;
 
 /**
- *
  * @author Christiaan
  */
 public class HiddenScene extends ZeldaScene {
 
-    private final Rectangle exitDown = new Rectangle(116, 449, 20, 20);
+    private final Rectangle exitDown = new Rectangle(EXIT_DOWN_X, EXIT_DOWN_Y, 20, 20);
 
     public HiddenScene(Game game, String entrance) {
-        super(game, "/static/images/hiddenpath.png", "HiddenScene");
+        super(game, "/static/images/hiddenPath.png", "HiddenScene");
         exits.add(exitDown);
 
-        int[] hxpos = {385, 446, 446, 112, 112, 111, 95, 96, 112, 113, 113, 72, 72, 115, 113,
-                52, 43, 480, 480};
-        int[] hypos = {190, 189, 112, 110, 187, 319, 319, 406, 406, 428, 424, 424, 454, 454,
-                467, 467, 53, 54, 204};
+        int[] wallX = WALL_X;
+        int[] wallY = WALL_Y;
 
-        var muur = new Polygon(hxpos, hypos, hypos.length);
+        var wall = new Polygon(wallX, wallY, wallY.length);
 
-        int[] axpos = {143, 141, 184, 183, 145, 142, 157, 159, 319, 320, 432, 431, 431, 142,
-                140, 144, 144, 383, 384, 489, 489, 240};
-        int[] aypos = {467, 455, 454, 426, 423, 406, 406, 350, 351, 412, 414, 320, 315, 313,
-                191, 191, 142, 142, 188, 299, 461, 460};
+        int[] wall1X = WALL1_X;
+        int[] wall1Y = WALL1_Y;
 
-        var muur1 = new Polygon(axpos, aypos, aypos.length);
+        var wall1 = new Polygon(wall1X, wall1Y, wall1Y.length);
 
-        int[] bxpos = {352, 353, 375, 375, 360, 360};
-        int[] bypos = {314, 371, 372, 359, 358, 318};
-        var muur2 = new Polygon(bxpos, bypos, bypos.length);
+        int[] wall2X = WALL2_X;
+        int[] wall2Y = WALL2_Y;
 
-        int[] cxpos = {423, 424, 415, 415, 409, 409, 429};
-        int[] cypos = {320, 365, 364, 358, 358, 372, 371};
-        var muur3 = new Polygon(cxpos, cypos, cypos.length);
+        var wall2 = new Polygon(wall2X, wall2Y, wall2Y.length);
 
-        int[] dxpos = {143, 114, 143};
-        int[] dypos = {467, 467, 466};
-        var uitgang = new Polygon(dxpos, dypos, dypos.length);
+        int[] wall3X = WALL3_X;
+        int[] wall3Y = WALL3_Y;
 
-        solids.add(muur);
-        solids.add(muur1);
-        solids.add(muur2);
-        solids.add(muur3);
-        solids.add(uitgang);
-        gameObjects.add(game.getLink());
+        var wall3 = new Polygon(wall3X, wall3Y, wall3Y.length);
 
-        gameObjects.add(new Rupee(game, 365, 322));
-        gameObjects.add(new Rupee(game, 373, 322));
-        gameObjects.add(new Rupee(game, 381, 322));
-        gameObjects.add(new Rupee(game, 389, 322));
-        gameObjects.add(new Rupee(game, 397, 322));
-        gameObjects.add(new Rupee(game, 405, 322));
-        gameObjects.add(new Rupee(game, 413, 322));
-        gameObjects.add(new Rupee(game, 365, 336));
-        gameObjects.add(new Rupee(game, 373, 336));
-        gameObjects.add(new Rupee(game, 381, 336));
-        gameObjects.add(new Rupee(game, 389, 336));
-        gameObjects.add(new Rupee(game, 397, 336));
-        gameObjects.add(new Rupee(game, 405, 336));
-        gameObjects.add(new Rupee(game, 413, 336));
+        int[] uitgangX = UITGANG_X;
+        int[] uitgangY = UITGANG_Y;
 
-        gameObjects.add(new WhiteSoldier(game, 123, 117, Direction.UP));
-        gameObjects.add(new WhiteSoldier(game, 121, 337, Direction.LEFT));
-        gameObjects.add(new WhiteSoldier(game, 325, 331, Direction.LEFT));
+        var uitgang = new Polygon(uitgangX, uitgangY, uitgangY.length);
 
-		if (!game.getSong().equals("/static/sounds/cave.mp3")) {
-			game.stopMusic();
+        solids.addAll(List.of(wall, wall1, wall2, wall3, uitgang));
+
+        gameObjects.addAll(List.of(
+                game.getLink(),
+                new Rupee(game, 365, 322),
+                new Rupee(game, 373, 322),
+                new Rupee(game, 381, 322),
+                new Rupee(game, 389, 322),
+                new Rupee(game, 397, 322),
+                new Rupee(game, 405, 322),
+                new Rupee(game, 413, 322),
+                new Rupee(game, 365, 336),
+                new Rupee(game, 373, 336),
+                new Rupee(game, 381, 336),
+                new Rupee(game, 389, 336),
+                new Rupee(game, 397, 336),
+                new Rupee(game, 405, 336),
+                new Rupee(game, 413, 336),
+                new WhiteSoldier(game, 123, 117, Direction.UP),
+                new WhiteSoldier(game, 121, 337, Direction.LEFT),
+                new WhiteSoldier(game, 325, 331, Direction.LEFT)
+        ));
+
+        if (!game.getSong().equals("/static/sounds/cave.mp3")) {
+            game.stopMusic();
             game.playMusic("/static/sounds/cave.mp3", true);
         }
 
@@ -97,11 +106,11 @@ public class HiddenScene extends ZeldaScene {
             game.getLink().setYHardCore(141);
         }
 
-		if (entrance.equals("HyruleSceneStairs")) {
-			moveScene(1, 79);
+        if (entrance.equals("HyruleSceneStairs")) {
+            moveScene(1, 79);
 
-			game.getLink().setXHardCore(116);
-			game.getLink().setYHardCore(346);
-		}
+            game.getLink().setXHardCore(116);
+            game.getLink().setYHardCore(346);
+        }
     }
 }
